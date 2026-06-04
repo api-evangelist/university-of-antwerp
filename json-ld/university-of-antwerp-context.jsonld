@@ -1,0 +1,105 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "uant": "https://www.uantwerpen.be/vocab#",
+    "oai": "http://www.openarchives.org/OAI/2.0/",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "@vocab": "https://www.uantwerpen.be/vocab#",
+
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "logo": "schema:logo",
+    "sameAs": "schema:sameAs",
+    "email": "schema:email",
+
+    "Organization": "schema:CollegeOrUniversity",
+    "University": "schema:CollegeOrUniversity",
+
+    "library": {
+      "@id": "uant:library",
+      "@type": "@id"
+    },
+    "repository": {
+      "@id": "uant:repository",
+      "@type": "@id"
+    },
+
+    "Api": "uant:Api",
+    "apis": {
+      "@id": "uant:hasApi",
+      "@container": "@set"
+    },
+    "humanURL": {
+      "@id": "uant:humanURL",
+      "@type": "@id"
+    },
+    "baseURL": {
+      "@id": "uant:baseURL",
+      "@type": "@id"
+    },
+
+    "Repository": "uant:Repository",
+    "repositoryName": "oai:repositoryName",
+    "baseUrl": {
+      "@id": "oai:baseURL",
+      "@type": "@id"
+    },
+    "protocolVersion": "oai:protocolVersion",
+    "adminEmail": {
+      "@id": "oai:adminEmail",
+      "@type": "schema:email"
+    },
+    "metadataPrefix": "oai:metadataPrefix",
+    "metadataNamespace": {
+      "@id": "oai:metadataNamespace",
+      "@type": "@id"
+    },
+    "schemaUrl": {
+      "@id": "oai:schema",
+      "@type": "@id"
+    },
+
+    "Record": "uant:Record",
+    "identifier": "dc:identifier",
+    "title": "dc:title",
+    "creator": "dc:creator",
+    "subject": "dc:subject",
+    "date": {
+      "@id": "dc:date",
+      "@type": "schema:Date"
+    },
+    "publisher": "dc:publisher",
+    "type": "dc:type",
+    "language": "dc:language"
+  },
+  "@type": "Organization",
+  "name": "University of Antwerp",
+  "url": "https://www.uantwerpen.be/en/",
+  "sameAs": [
+    "https://github.com/anet-be",
+    "https://www.linkedin.com/school/university-of-antwerp/",
+    "https://x.com/uantwerpen"
+  ],
+  "apis": [
+    {
+      "@type": "Api",
+      "name": "IRUA OAI-PMH Metadata API",
+      "humanURL": "https://www.openarchives.org/OAI/openarchivesprotocol.html",
+      "baseURL": "https://repository.uantwerpen.be/oai/abua/",
+      "repository": {
+        "@type": "Repository",
+        "repositoryName": "Institutional Repository University of Antwerp (IRUA)",
+        "baseUrl": "https://repository.uantwerpen.be/oai/abua/",
+        "protocolVersion": "2.0",
+        "adminEmail": "helpdesk@anet.be"
+      }
+    },
+    {
+      "@type": "Api",
+      "name": "Brocade Library Services (Anet)",
+      "humanURL": "https://www.uantwerpen.be/nl/projecten/anet/brocade/"
+    }
+  ]
+}
