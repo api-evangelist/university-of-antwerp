@@ -1,0 +1,46 @@
+---
+name: University of Antwerp
+description: University of Antwerp public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-antwerp/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      The University of Antwerp has a modest but real public API/open-infrastructure
+      footprint anchored in its library systems. Verified live: the IRUA OAI-PMH 2.0
+      endpoint returns valid OAI-PMH XML (canonical baseURL
+      https://repository.uantwerpen.be/oai/abua/; the legacy http://anet.be/oai/abua/
+      path 301-redirects to it). The anet-be GitHub organization exists with 17 public
+      repositories and maintains the open-source Brocade library system. No general
+      public, self-service, commercially documented developer portal or REST API was
+      found; student-information, course/timetable, and identity (SSO) systems are
+      gated behind institutional affiliation. No endpoints were fabricated; every URL
+      below was probed. LinkedIn returns HTTP 999 (anti-bot) but the school page resolves
+      in-browser.
+    endpoints:
+      - url: https://repository.uantwerpen.be/oai/abua/?verb=Identify
+        status: 200
+        note: Live OAI-PMH Identify; repositoryName "Institutional Repository University of Antwerp (IRUA)".
+      - url: http://anet.be/oai/abua/server.phtml?verb=Identify
+        status: 200
+        note: Legacy OAI path; 301-redirects to HTTPS and resolves to the IRUA OAI baseURL.
+      - url: https://github.com/anet-be
+        status: 200
+        note: Anet GitHub org (University of Antwerp library software dept), 17 public repos.
+      - url: https://www.uantwerpen.be/nl/projecten/anet/brocade/
+        status: 200
+        note: Brocade library system documentation page.
+      - url: https://www.uantwerpen.be/en/
+        status: 200
+        note: Official institutional website (English).
+      - url: https://x.com/uantwerpen
+        status: 200
+        note: Official @UAntwerpen X/Twitter account.
+      - url: https://www.linkedin.com/school/university-of-antwerp/
+        status: 999
+        note: LinkedIn anti-bot status code; school page resolves in a normal browser.
+      - url: https://www.uantwerpen.be/nl/projecten/anet/open-data/
+        status: 0
+        note: Open-data overview path returned 404 on fetch; no public REST API confirmed from it.

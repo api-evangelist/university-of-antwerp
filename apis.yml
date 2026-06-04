@@ -1,0 +1,87 @@
+---
+aid: university-of-antwerp
+name: University of Antwerp
+description: >-
+  The University of Antwerp (Universiteit Antwerpen) is a public research university
+  in Antwerp, Belgium, ranked #267 in the QS World University Rankings 2025. Its
+  public developer and API footprint is centered on its library and scholarly
+  infrastructure: the university library's software department, Anet, builds the
+  open-source Brocade library management system and publishes code via the anet-be
+  GitHub organization. The Institutional Repository University of Antwerp (IRUA)
+  exposes scholarly metadata through a standards-based OAI-PMH interface. The
+  university does not operate a general-purpose commercial developer portal;
+  administrative, student-information, and identity systems are gated behind
+  institutional affiliation rather than offered as public self-service APIs.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-antwerp/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Library
+  - Institutional Repository
+  - OAI-PMH
+  - Open Data
+  - Belgium
+  - Europe
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-antwerp:irua-oai-pmh
+    name: IRUA OAI-PMH Metadata API
+    description: >-
+      Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH 2.0)
+      interface for the Institutional Repository University of Antwerp (IRUA),
+      exposing scholarly publication metadata for harvesting. Supports the standard
+      OAI-PMH verbs (Identify, ListMetadataFormats, ListRecords, etc.). Verified
+      live returning valid OAI-PMH XML with repository name "Institutional
+      Repository University of Antwerp (IRUA)".
+    humanURL: https://www.openarchives.org/OAI/openarchivesprotocol.html
+    baseURL: https://repository.uantwerpen.be/oai/abua/
+    tags: [ Library, Institutional Repository, OAI-PMH, Metadata, Open Data, Research ]
+    properties:
+      - type: Documentation
+        url: https://www.openarchives.org/OAI/openarchivesprotocol.html
+  - aid: university-of-antwerp:brocade
+    name: Brocade Library Services (Anet)
+    description: >-
+      Brocade is the integrated, web-based library management system developed by
+      Anet, the software department of the University of Antwerp Library, since 1998.
+      It powers the catalog of the Anet network of academic libraries and uses open
+      standards such as Z39.50, MARC, OAI-PMH, EAD and EAC. Related open-source
+      components and library tooling are published under the anet-be GitHub
+      organization (17 public repositories). No public self-service REST API base
+      URL is documented for general use.
+    humanURL: https://www.uantwerpen.be/nl/projecten/anet/brocade/
+    tags: [ Library, Brocade, Anet, Open Source, Z39.50, MARC ]
+    properties:
+      - type: Documentation
+        url: https://www.uantwerpen.be/nl/projecten/anet/brocade/
+      - type: GitHub
+        url: https://github.com/anet-be
+common:
+  - type: Website
+    url: https://www.uantwerpen.be/en/
+  - type: GitHub
+    url: https://github.com/anet-be
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/university-of-antwerp/
+  - type: Twitter
+    url: https://x.com/uantwerpen
+  - type: SourceCode
+    url: https://github.com/anet-be
+  - type: Plans
+    url: plans/university-of-antwerp-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-antwerp-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-antwerp-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
