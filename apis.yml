@@ -64,6 +64,8 @@ apis:
       - type: GitHub
         url: https://github.com/anet-be
 common:
+  - type: DomainSecurity
+    url: security/university-of-antwerp-domain-security.yml
   - type: Website
     url: https://www.uantwerpen.be/en/
   - type: GitHub
