@@ -69,7 +69,20 @@ apis:
       organization (17 public repositories). No public self-service REST API base
       URL is documented for general use.
     humanURL: https://www.uantwerpen.be/nl/projecten/anet/brocade/
-    tags: [ Library, Brocade, Anet, Open Source, Z39.50, MARC ]
+    tags:
+    - Library
+    - Brocade
+    - Anet
+    - Open-Source
+    - Z39.50
+    - MARC
+    tags_raw:
+    - Library
+    - Brocade
+    - Anet
+    - Open Source
+    - Z39.50
+    - MARC
     properties:
       - type: Documentation
         url: https://www.uantwerpen.be/nl/projecten/anet/brocade/
