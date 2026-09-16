@@ -74,70 +74,19 @@ created: '2026-06-03'
 modified: '2026-09-01'
 specificationVersion: '0.23'
 apis:
-- aid: university-of-antwerp:irua-oai-pmh
-  name: IRUA OAI-PMH Metadata Interface
-  description: >-
-    Open Archives Initiative Protocol for Metadata Harvesting 2.0 interface for the
-    Institutional Repository University of Antwerp (IRUA). Verified live on 2026-09-01:
-    Identify returns repositoryName "Institutional Repository University of Antwerp (IRUA)",
-    protocolVersion 2.0, earliestDatestamp 2002-12-31, deletedRecord persistent, granularity
-    YYYY-MM-DD. ListMetadataFormats advertises six prefixes (oai_dc, marc21, catxml, vabbmods,
-    fwomods, cerif); ListSets advertises four sets, two of them parameterised templates that
-    make an ORCID iD or a free-text query a valid harvesting scope; ListRecords on the
-    OpenAIRE set returned 2,826,135 bytes of real records; GetRecord returns Dublin Core with
-    COAR/OpenAIRE access-rights vocabulary, a DOI, a Handle under prefix 10067 and a direct
-    fulltext URL. Errors are returned as HTTP 200 with an <error> element. The university
-    publishes no specification for this endpoint; the OpenAPI here is ours, marked derived.
-  humanURL: https://www.uantwerpen.be/en/library/research/academic-bibliography/
-  baseURL: https://repository.uantwerpen.be/oai/abua/
-  tags:
-  - Institutional Repository
-  - OAI-PMH
-  - Metadata
-  - Research
-  - Open Access
-  - Library
-  properties:
-  - type: OpenAPI
-    url: openapi/university-of-antwerp-irua-oai-pmh-openapi.yml
-  - type: Examples
-    url: examples/university-of-antwerp-irua-oai-pmh-examples.yml
-  - type: Vocabulary
-    url: vocabulary/university-of-antwerp-irua-metadata-vocabulary.yml
-  - type: Scopes
-    url: scopes/university-of-antwerp-irua-oai-sets.yml
-  - type: Errors
-    url: errors/university-of-antwerp-irua-oai-errors.yml
-  - type: Lifecycle
-    url: lifecycle/university-of-antwerp-irua-lifecycle.yml
-  - type: Authentication
-    url: authentication/university-of-antwerp-authentication.yml
-  - type: Conformance
-    url: conformance/university-of-antwerp-conformance.yml
-  - type: Documentation
-    url: https://www.openarchives.org/OAI/openarchivesprotocol.html
-  x-operator: institution
-  x-operator-basis: >-
-    repository.uantwerpen.be is under the institution's own registrable domain and resolves via
-    moto.cde.uantwerpen.be to 143.169.239.17, inside inetnum 143.169.0.0 - 143.169.255.255,
-    netname UA, org ORG-UA448-RIPE "Universiteit Antwerpen", Prinsstraat 13, 2000 Antwerpen
-    (RIPE, mnt-by BELNET-MNT). Not a vendor tenancy: the Brocade/Wander repository software
-    underneath is the university library's own, hosted on the same address.
 - aid: university-of-antwerp:idp
   name: University of Antwerp Identity Provider (Shibboleth / SAML 2.0)
   description: >-
-    The university's federated login, published as a SAML 2.0 EntityDescriptor at
-    https://idpx.ua.ac.be/idp/shibboleth (HTTP 200, application/xml, 16,305 bytes). Declares
-    four SingleSignOnService bindings, eight KeyDescriptors, a SAML 1.1/2.0 attribute
-    authority over SOAP, shibmd:Scope ua.ac.be, OrganizationName "Universiteit Antwerpen" and
-    mdui:IPHint values 143.169.0.0/16, 143.129.0.0/16 and 146.175.0.0/16. Registered by the
-    Belnet R&E Federation on 2012-03-27 and interfederated into eduGAIN. This is the most
-    complete machine-readable contract the institution publishes and it is genuinely its own.
-    The entityID still carries the pre-2011 domain ua.ac.be while every service endpoint
-    points at idpx.uantwerpen.be — a legacy entityID is a permanent name, not a stale pointer,
-    and a host-matching audit will miss this surface because of it. One defect observed: the
-    standalone document is not well-formed as served, using the mdrpi: prefix without
-    declaring it.
+    The university's federated login, published as a SAML 2.0 EntityDescriptor at https://idpx.ua.ac.be/idp/shibboleth
+    (HTTP 200, application/xml, 16,305 bytes). Declares four SingleSignOnService bindings, eight KeyDescriptors,
+    a SAML 1.1/2.0 attribute authority over SOAP, shibmd:Scope ua.ac.be, OrganizationName "Universiteit
+    Antwerpen" and mdui:IPHint values 143.169.0.0/16, 143.129.0.0/16 and 146.175.0.0/16. Registered by
+    the Belnet R&E Federation on 2012-03-27 and interfederated into eduGAIN. This is the most complete
+    machine-readable contract the institution publishes and it is genuinely its own. The entityID still
+    carries the pre-2011 domain ua.ac.be while every service endpoint points at idpx.uantwerpen.be — a
+    legacy entityID is a permanent name, not a stale pointer, and a host-matching audit will miss this
+    surface because of it. One defect observed: the standalone document is not well-formed as served,
+    using the mdrpi: prefix without declaring it.
   humanURL: https://idpx.ua.ac.be/idp/shibboleth
   baseURL: https://idpx.uantwerpen.be/idp/
   tags:
@@ -155,23 +104,20 @@ apis:
     url: conformance/university-of-antwerp-conformance.yml
   x-operator: institution
   x-operator-basis: >-
-    idpx.ua.ac.be and idpx.uantwerpen.be both CNAME to idp.uantwerpen.be and resolve to
-    143.169.245.77, inside the university's own RIPE allocation (143.169.0.0/16, netname UA,
-    org "Universiteit Antwerpen"). No CNAME off institution infrastructure and no managed-IdP
-    pattern of the AAF Rapid IdP kind that made Monash's IdP a tenant. The metadata's own
-    mdui:IPHint declares the same netblock, and the SSO endpoint serves a branded
-    "Universiteit Antwerpen Login Service" page from that host.
+    idpx.ua.ac.be and idpx.uantwerpen.be both CNAME to idp.uantwerpen.be and resolve to 143.169.245.77,
+    inside the university's own RIPE allocation (143.169.0.0/16, netname UA, org "Universiteit Antwerpen").
+    No CNAME off institution infrastructure and no managed-IdP pattern of the AAF Rapid IdP kind that
+    made Monash's IdP a tenant. The metadata's own mdui:IPHint declares the same netblock, and the SSO
+    endpoint serves a branded "Universiteit Antwerpen Login Service" page from that host.
 - aid: university-of-antwerp:belnet-federation
   name: Belnet R&E Federation membership
   description: >-
-    The Belgian national research and education identity federation, operated by Belnet, in
-    which the university's identity provider is registered. The registration is asserted
-    inside the university's own metadata: registrationAuthority http://federation.belnet.be/,
-    registrationInstant 2012-03-27T12:00:00Z, registration policy
-    http://federation.belnet.be/files/Belnet-metadata-registration-practice-statement.txt.
-    Belnet interfederates into eduGAIN. Recorded as a membership, never as a contract of the
-    university's — a federation is shared by definition, and the identity provider behind it
-    is theirs.
+    The Belgian national research and education identity federation, operated by Belnet, in which the
+    university's identity provider is registered. The registration is asserted inside the university's
+    own metadata: registrationAuthority http://federation.belnet.be/, registrationInstant 2012-03-27T12:00:00Z,
+    registration policy http://federation.belnet.be/files/Belnet-metadata-registration-practice-statement.txt.
+    Belnet interfederates into eduGAIN. Recorded as a membership, never as a contract of the university's
+    — a federation is shared by definition, and the identity provider behind it is theirs.
   humanURL: https://belnet.be/en/services/identity-mobility-federation/belnet-re-federation
   tags:
   - Identity Federation
@@ -183,24 +129,21 @@ apis:
     url: identity-federation/university-of-antwerp-identity-federation.yml
   x-operator: federation
   x-operator-basis: >-
-    Belnet operates the federation and the registration authority; the University of Antwerp
-    operates the identity provider registered inside it. Shared by design, not by
-    misattribution.
+    Belnet operates the federation and the registration authority; the University of Antwerp operates
+    the identity provider registered inside it. Shared by design, not by misattribution.
 - aid: university-of-antwerp:brocade
   name: Wander (formerly Brocade) — library platform built by UAntwerpen Library & Archive
   description: >-
-    Wander is the integrated library, collection and research-information platform the
-    University of Antwerp Library & Archive has built since 1998, when it was called Brocade
-    and the department was called Anet. It rebranded to Wander during 2026 — anet.be now
-    redirects to www.wander.be — and is offered to universities, archives, museums and
-    heritage institutions across Flanders as WanderCollections, WanderResearch,
-    WanderReservations and Impala. The application runs at go.wander.be, with
-    anet.uantwerpen.be and repository.uantwerpen.be as institution-branded entrances onto the
-    same host. There is no public self-service REST API and no published specification; the
-    machine-readable surface it exposes is the OAI-PMH interface catalogued separately above.
-    Open-source components are published through the anet-be GitHub organisation. This entry
-    is the reason this profile is not a normal university profile: it is the institution as
-    software vendor, and other institutions in this cohort are its tenants.
+    Wander is the integrated library, collection and research-information platform the University of Antwerp
+    Library & Archive has built since 1998, when it was called Brocade and the department was called Anet.
+    It rebranded to Wander during 2026 — anet.be now redirects to www.wander.be — and is offered to universities,
+    archives, museums and heritage institutions across Flanders as WanderCollections, WanderResearch,
+    WanderReservations and Impala. The application runs at go.wander.be, with anet.uantwerpen.be and repository.uantwerpen.be
+    as institution-branded entrances onto the same host. There is no public self-service REST API and
+    no published specification; the machine-readable surface it exposes is the OAI-PMH interface catalogued
+    separately above. Open-source components are published through the anet-be GitHub organisation. This
+    entry is the reason this profile is not a normal university profile: it is the institution as software
+    vendor, and other institutions in this cohort are its tenants.
   humanURL: https://www.wander.be/en
   baseURL: https://go.wander.be/
   tags:
@@ -226,25 +169,23 @@ apis:
     url: https://anet.uantwerpen.be/desktop/uantwerpen/opacuantwerpen/E
   x-operator: institution
   x-operator-basis: >-
-    A vendor-looking domain that resolves into the institution's own address space — the
-    inverse of this pipeline's usual finding. go.wander.be resolves to 143.169.239.17, the
-    same University of Antwerp RIPE allocation (netname UA, org "Universiteit Antwerpen") that
-    serves repository.uantwerpen.be and anet.uantwerpen.be; all three are the same host,
-    moto.cde.uantwerpen.be. The Wander contact address is "Wander, Bibliotheek & Archief
-    UAntwerpen, Stadscampus, Venusstraat 35, 3e verdieping, 2000 Antwerpen" and the site's
-    social link is the UAntwerpen Bibliotheek & Archief LinkedIn page. Only the marketing site
-    www.wander.be is outsourced, to Webflow. Software the institution writes and hosts.
+    A vendor-looking domain that resolves into the institution's own address space — the inverse of this
+    pipeline's usual finding. go.wander.be resolves to 143.169.239.17, the same University of Antwerp
+    RIPE allocation (netname UA, org "Universiteit Antwerpen") that serves repository.uantwerpen.be and
+    anet.uantwerpen.be; all three are the same host, moto.cde.uantwerpen.be. The Wander contact address
+    is "Wander, Bibliotheek & Archief UAntwerpen, Stadscampus, Venusstraat 35, 3e verdieping, 2000 Antwerpen"
+    and the site's social link is the UAntwerpen Bibliotheek & Archief LinkedIn page. Only the marketing
+    site www.wander.be is outsourced, to Webflow. Software the institution writes and hosts.
 - aid: university-of-antwerp:blackboard
   name: Blackboard Learn (Anthology) — tenant
   description: >-
-    The university's learning management system, running as an Anthology-hosted tenant on the
-    institution hostname blackboard.uantwerpen.be. Anthology's Blackboard Learn REST API
-    answers there — /learn/api/public/v1/system/version returned HTTP 200 with
-    {"learn":{"major":4000,"minor":21,"patch":0,"build":"rel.28+435d029"}}, and
-    /learn/api/public/v1/courses returned HTTP 401 "API request is not authenticated." The
-    tenancy is a real institutional fact and is recorded; the contract, the OAuth server and
-    the engineering are Anthology's, so no Blackboard specification is saved under this
-    institution and no LTI or Caliper conformance is credited to it.
+    The university's learning management system, running as an Anthology-hosted tenant on the institution
+    hostname blackboard.uantwerpen.be. Anthology's Blackboard Learn REST API answers there — /learn/api/public/v1/system/version
+    returned HTTP 200 with {"learn":{"major":4000,"minor":21,"patch":0,"build":"rel.28+435d029"}}, and
+    /learn/api/public/v1/courses returned HTTP 401 "API request is not authenticated." The tenancy is
+    a real institutional fact and is recorded; the contract, the OAuth server and the engineering are
+    Anthology's, so no Blackboard specification is saved under this institution and no LTI or Caliper
+    conformance is credited to it.
   humanURL: https://blackboard.uantwerpen.be/
   baseURL: https://blackboard.uantwerpen.be/learn/api/public/v1/
   tags:
@@ -257,23 +198,21 @@ apis:
     url: authentication/university-of-antwerp-authentication.yml
   x-operator: tenant
   x-operator-basis: >-
-    CNAME tenancy on an institution hostname. blackboard.uantwerpen.be CNAMEs to
-    uantwerpen-livemig.blackboard.com, then to
-    learn-prod-60caf1f508643-81972277.eu-central-1.elb.amazonaws.com, resolving to
-    52.58.189.128 / 54.93.54.199 — Amazon Technologies Inc. (AT-88-Z), eu-central-1. The
-    "livemig" and per-tenant ELB naming is Anthology's managed SaaS pattern. University's
-    data, university's hostname, Anthology's platform.
+    CNAME tenancy on an institution hostname. blackboard.uantwerpen.be CNAMEs to uantwerpen-livemig.blackboard.com,
+    then to learn-prod-60caf1f508643-81972277.eu-central-1.elb.amazonaws.com, resolving to 52.58.189.128
+    / 54.93.54.199 — Amazon Technologies Inc. (AT-88-Z), eu-central-1. The "livemig" and per-tenant ELB
+    naming is Anthology's managed SaaS pattern. University's data, university's hostname, Anthology's
+    platform.
 - aid: university-of-antwerp:vsc
   name: Flemish Supercomputer Centre (VSC) participation
   description: >-
-    The university is one of the five Flemish university partners in the Vlaams
-    Supercomputer Centrum and operates the CalcUA tier-2 cluster locally. The shared account
-    and allocation portal at account.vscentrum.be redirects to a Shibboleth discovery service
-    whose institution list includes "Universiteit Antwerpen" against entityID
-    https://idpx.ua.ac.be/idp/shibboleth — which is how that entityID was recovered. The
-    portal itself is not a University of Antwerp surface, so it is recorded as a
-    participation, not credited as an institution contract. No public API or specification is
-    published for either the portal or CalcUA.
+    The university is one of the five Flemish university partners in the Vlaams Supercomputer Centrum
+    and operates the CalcUA tier-2 cluster locally. The shared account and allocation portal at account.vscentrum.be
+    redirects to a Shibboleth discovery service whose institution list includes "Universiteit Antwerpen"
+    against entityID https://idpx.ua.ac.be/idp/shibboleth — which is how that entityID was recovered.
+    The portal itself is not a University of Antwerp surface, so it is recorded as a participation, not
+    credited as an institution contract. No public API or specification is published for either the portal
+    or CalcUA.
   humanURL: https://www.uantwerpen.be/en/research-facilities/calcua/
   baseURL: https://account.vscentrum.be/
   tags:
@@ -288,19 +227,17 @@ apis:
     url: https://docs.vscentrum.be/
   x-operator: tenant
   x-operator-basis: >-
-    account.vscentrum.be CNAMEs through accvsc.ugent.be to 157.193.43.57, netname RUGNET1,
-    org-name "Universiteit Gent" — the consortium portal is operated by Ghent University on
-    behalf of the five partners. The University of Antwerp authenticates into it with its own
-    IdP; it does not run it.
+    account.vscentrum.be CNAMEs through accvsc.ugent.be to 157.193.43.57, netname RUGNET1, org-name "Universiteit
+    Gent" — the consortium portal is operated by Ghent University on behalf of the five partners. The
+    University of Antwerp authenticates into it with its own IdP; it does not run it.
 - aid: university-of-antwerp:crossref
   name: Crossref membership
   description: >-
-    The university is Crossref member 29262 "University of Antwerp", holding DOI prefixes
-    10.52034 and 10.63028 with 565 registered DOIs (37 current, 528 backfile) as of the 2026
-    status check returned by https://api.crossref.org/members?query=antwerp. This is a
-    registry membership — a fact about the institution — and Crossref's own API is never saved
-    as the institution's contract. The corresponding DataCite check is negative: both
-    api.datacite.org/providers and /clients return zero results for Antwerp.
+    The university is Crossref member 29262 "University of Antwerp", holding DOI prefixes 10.52034 and
+    10.63028 with 565 registered DOIs (37 current, 528 backfile) as of the 2026 status check returned
+    by https://api.crossref.org/members?query=antwerp. This is a registry membership — a fact about the
+    institution — and Crossref's own API is never saved as the institution's contract. The corresponding
+    DataCite check is negative: both api.datacite.org/providers and /clients return zero results for Antwerp.
   humanURL: https://api.crossref.org/members/29262
   tags:
   - DOI
@@ -312,17 +249,16 @@ apis:
     url: conformance/university-of-antwerp-conformance.yml
   x-operator: registry
   x-operator-basis: >-
-    api.crossref.org is an identifier registry the institution is registered IN, shared by
-    every Crossref member. Membership recorded; registry contract not saved.
+    api.crossref.org is an identifier registry the institution is registered IN, shared by every Crossref
+    member. Membership recorded; registry contract not saved.
 - aid: university-of-antwerp:ror
   name: ROR registration
   description: >-
-    Research Organization Registry identifier https://ror.org/008x57b05, resolved live from
-    https://api.ror.org/v2/organizations. Declares domain uantwerpen.be, established 2003,
-    location Antwerp, Flanders, Belgium, and cross-identifiers GRID grid.5284.b, ISNI
-    0000 0001 0790 3681, Wikidata Q175241 and Crossref Funder ID 501100007660. The ROR record
-    is the machine-readable anchor that ties every other surface in this profile to one legal
-    entity.
+    Research Organization Registry identifier https://ror.org/008x57b05, resolved live from https://api.ror.org/v2/organizations.
+    Declares domain uantwerpen.be, established 2003, location Antwerp, Flanders, Belgium, and cross-identifiers
+    GRID grid.5284.b, ISNI 0000 0001 0790 3681, Wikidata Q175241 and Crossref Funder ID 501100007660.
+    The ROR record is the machine-readable anchor that ties every other surface in this profile to one
+    legal entity.
   humanURL: https://ror.org/008x57b05
   tags:
   - Registry
@@ -334,8 +270,36 @@ apis:
     url: https://ror.org/008x57b05
   x-operator: registry
   x-operator-basis: >-
-    ror.org is an organization identifier registry the institution is registered IN. Shared by
-    every registered organization; the registration is theirs, the registry is not.
+    ror.org is an organization identifier registry the institution is registered IN. Shared by every registered
+    organization; the registration is theirs, the registry is not.
+- aid: university-of-antwerp:university-of-antwerp-irua-oai-pmh-metadata-interface-api
+  name: University of Antwerp IRUA OAI PMH Metadata Interface API
+  description: >-
+    The IRUA OAI PMH Metadata Interface API from University of Antwerp — 1 operation(s) for irua oai pmh
+    metadata interface.
+  humanURL: https://www.uantwerpen.be/en/library/research/academic-bibliography/
+  baseURL: https://repository.uantwerpen.be/oai/abua/
+  tags:
+  - IRUA OAI PMH Metadata Interface
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-antwerp-irua-oai-pmh-metadata-interface-api-openapi.yml
+  - type: Examples
+    url: examples/university-of-antwerp-irua-oai-pmh-examples.yml
+  - type: Vocabulary
+    url: vocabulary/university-of-antwerp-irua-metadata-vocabulary.yml
+  - type: Scopes
+    url: scopes/university-of-antwerp-irua-oai-sets.yml
+  - type: Errors
+    url: errors/university-of-antwerp-irua-oai-errors.yml
+  - type: Lifecycle
+    url: lifecycle/university-of-antwerp-irua-lifecycle.yml
+  - type: Authentication
+    url: authentication/university-of-antwerp-authentication.yml
+  - type: Conformance
+    url: conformance/university-of-antwerp-conformance.yml
+  - type: Documentation
+    url: https://www.openarchives.org/OAI/openarchivesprotocol.html
 common:
 - type: Website
   url: https://www.uantwerpen.be/en/
