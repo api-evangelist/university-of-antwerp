@@ -1,0 +1,76 @@
+specification: API Evangelist Examples
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+api: university-of-antwerp:irua-oai-pmh
+generated: '2026-09-01'
+method: probed
+source: Verbatim responses captured live from https://repository.uantwerpen.be/oai/abua/ on 2026-09-01.
+  Nothing here is synthesised; each block is the exact bytes returned, truncated only where noted.
+x-operator: institution
+description: 'Real captured OAI-PMH 2.0 responses from the Institutional Repository University of Antwerp
+  (IRUA). They document the two things a harvesting client most needs and the university does not write
+  down anywhere: the identifier form (c:irua:<numeric>) and the fact that protocol errors arrive as HTTP
+  200 with an <error> element.'
+examples:
+- name: Identify
+  request: https://repository.uantwerpen.be/oai/abua/?verb=Identify
+  status: 200
+  content_type: text/xml
+  truncated: false
+  response: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><?xml-stylesheet type=\"text/xsl\" href=\"oaitohtml.xsl\"\
+    ?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+    \n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/\n         http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\"\
+    >\n <responseDate>2026-09-01T23:08:36Z</responseDate>\n<request verb=\"Identify\">https://repository.uantwerpen.be/oai/abua/</request>\n\
+    <Identify><repositoryName>Institutional Repository University of Antwerp (IRUA)</repositoryName><baseURL>https://repository.uantwerpen.be/oai/abua/</baseURL><protocolVersion>2.0</protocolVersion><adminEmail>helpdesk@mail.wander.be</adminEmail><earliestDatestamp>2002-12-31</earliestDatestamp><deletedRecord>persistent</deletedRecord><granularity>YYYY-MM-DD</granularity></Identify>\n\
+    </OAI-PMH>\n"
+- name: GetRecord (oai_dc)
+  request: https://repository.uantwerpen.be/oai/abua/?verb=GetRecord&identifier=c:irua:100005&metadataPrefix=oai_dc
+  status: 200
+  content_type: text/xml
+  truncated: true
+  notes: Truncated after the metadata block. Records carry COAR/OpenAIRE access-rights and type vocabulary
+    (info:eu-repo/semantics/openAccess, .../article, .../publishedVersion), a DOI, a Handle (hdl.handle.net/10067/...)
+    and a direct fulltext URL under repository.uantwerpen.be/docman/irua/.
+  response: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"\
+    \n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"\
+    http://www.openarchives.org/OAI/2.0/\n         http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n\
+    \ <responseDate>2026-09-01T23:08:38Z</responseDate>\n<request verb=\"GetRecord\" identifier=\"c:irua:100005\"\
+    \ metadataPrefix=\"oai_dc\">https://repository.uantwerpen.be/oai/abua/</request>\n<GetRecord><record><header><identifier>c:irua:100005</identifier><setSpec>set:irua:openaccess</setSpec><datestamp>2024-09-10</datestamp></header><metadata><dc\
+    \ xmlns:oai_dc=\"http://www.openarchives.org/OAI/2.0/oai_dc/\" xmlns:ns2=\"http://purl.org/dc/terms/\"\
+    \ xmlns=\"http://purl.org/dc/elements/1.1/\"><title>Sign gradations on group-ring extensions of graded\
+    \ rings</title><creator>Li, Hui-Shi</creator><creator>Van Oystaeyen, F.</creator><subject>Mathematics</subject><description>Abstract:\
+    \ For a (group)G-graded ring R and any submonoid H of the center Z(G) containing the identity element\
+    \ e of G we define a G-gradation on the semigroup ring R[H] such that R[H]e congruent-to R(H) where\
+    \ R(H) = +h is-an-element-of H R(h) subset-or-equal-to R, and then we give some applications of the\
+    \ new gradations to graded rings and I-adic filtrations.</description><date>1993</date><rights>info:eu-repo/semantics/openAccess</rights><type>info:eu-repo/semantics/article</type><type>info:eu-repo/semantics/publishedVersion</type><format>pdf</format><identifier>https://doi.org/10.1016/0022-4049(93)90144-I</identifier><identifier>https://hdl.handle.net/10067/1000050151162165141</identifier><identifier>https://repository.uantwerpen.be/docman/irua/5ba57f/2273.pdf</identifier><source>0022-4049</source><source>Journal\
+    \ of pure and applied algebra</source><language>eng</language><relation>info:eu-repo/semantics/altIdentifier/isi/A1993KV50000006</relation><relation>info:eu-repo/semantics/altIdentifier/doi/10.1016/0022-4049(93)90144-I</relation></dc></metadata></record></GetRecord>\n\
+    </OAI-PMH>\n"
+- name: ListIdentifiers (set:irua:openaccess)
+  request: https://repository.uantwerpen.be/oai/abua/?verb=ListIdentifiers&metadataPrefix=oai_dc&set=set:irua:openaccess
+  status: 200
+  content_type: text/xml
+  truncated: true
+  notes: Truncated at 1,400 bytes. Full response paginates with resumptionToken.
+  response: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><?xml-stylesheet type=\"text/xsl\" href=\"oaitohtml.xsl\"\
+    ?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+    \n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/\n         http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\"\
+    >\n <responseDate>2026-09-01T23:08:37Z</responseDate>\n<request verb=\"ListIdentifiers\" metadataPrefix=\"\
+    oai_dc\" set=\"set:irua:openaccess\">https://repository.uantwerpen.be/oai/abua/</request>\n<ListIdentifiers>\n\
+    <header><identifier>c:irua:100005</identifier><datestamp>2024-09-10</datestamp></header>\n<header><identifier>c:irua:100072</identifier><datestamp>2024-08-28</datestamp></header>\n\
+    <header><identifier>c:irua:100099</identifier><datestamp>2024-10-02</datestamp></header>\n<header><identifier>c:irua:100100</identifier><datestamp>2024-08-20</datestamp></header>\n\
+    <header><identifier>c:irua:100108</identifier><datestamp>2024-08-21</datestamp></header>\n<header><identifier>c:irua:100109</identifier><datestamp>2024-12-31</datestamp></header>\n\
+    <header><identifier>c:irua:100112</identifier><datestamp>2024-08-18</datestamp></header>\n<header><identifier>c:irua:100211</identifier><datestamp>2024-08-18</datestamp></header>\n\
+    <header><identifier>c:irua:100212</identifier><datestamp>2022-10-07</datestamp></header>\n<header><identifier>c:irua:100237</identifier><datestamp>2"
+- name: 'Error: badVerb'
+  request: https://repository.uantwerpen.be/oai/abua/?verb=Bogus
+  status: 200
+  content_type: text/xml
+  truncated: false
+  notes: HTTP status is 200, not 400. Protocol-correct for OAI-PMH and a real trap for clients that branch
+    on status code alone.
+  response: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><?xml-stylesheet type=\"text/xsl\" href=\"oaitohtml.xsl\"\
+    ?>\n<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+    \n         xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/\n         http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\"\
+    >\n <responseDate>2026-09-01T23:08:36Z</responseDate>\n<request verb=\"Bogus\">https://repository.uantwerpen.be/oai/abua/</request>\n\
+    <error code=\"badVerb\">Verb not allowed in this repository</error>\n</OAI-PMH>\n"

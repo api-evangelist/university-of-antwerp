@@ -1,0 +1,160 @@
+specification: API Evangelist Domain Standard Conformance
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+regime: education
+generated: '2026-09-01'
+method: probed
+source: >-
+  Live probes on 2026-09-01 of the IRUA OAI-PMH endpoint
+  https://repository.uantwerpen.be/oai/abua/ (Identify, ListMetadataFormats, ListSets,
+  ListIdentifiers, ListRecords, and three error verbs — all HTTP 200); the SAML 2.0
+  EntityDescriptor served at https://idpx.ua.ac.be/idp/shibboleth (HTTP 200,
+  application/xml, archived at identity-federation/university-of-antwerp-idp-saml-metadata.xml);
+  the Crossref members API https://api.crossref.org/members?query=antwerp (HTTP 200); the
+  DataCite providers and clients APIs (HTTP 200, zero results); the ROR API
+  https://api.ror.org/v2/organizations (HTTP 200); and RIPE whois on every host, to settle
+  who operates the thing each contract describes.
+description: >-
+  Conformance against the Kin Score `education` regulatory regime standards list (scim, lti,
+  oneroster, ed-fi, caliper, qti, oai-pmh, shibboleth, saml, orcid, datacite, crossref).
+  Reward-only: a standard is recorded as conformant only where an INSTITUTION-OPERATED
+  surface demonstrates it in a live response. Standards reached only through a vendor
+  platform running under a uantwerpen.be hostname are listed separately as tenant-operated,
+  because that conformance belongs to the platform's engineering, not to the university's.
+
+  Operator was settled by IP ownership, not hostname, and here that check ADDS rather than
+  removes. Both conformant surfaces resolve into 143.169.0.0/16, netname UA, org
+  "Universiteit Antwerpen" (RIPE) — the university's own address space. Unusually for this
+  cohort the university is a producer, not only a buyer: the Brocade/Wander library platform
+  serving the repository is built and hosted by its own Library & Archive.
+
+conforms:
+- standard: oai-pmh
+  name: Open Archives Initiative Protocol for Metadata Harvesting 2.0
+  status: conformant
+  x-operator: institution
+  confidence: high
+  evidence:
+    url: https://repository.uantwerpen.be/oai/abua/?verb=Identify
+    status: 200
+    detail: >-
+      Returns a valid OAI-PMH 2.0 Identify response — repositoryName "Institutional Repository
+      University of Antwerp (IRUA)", protocolVersion 2.0, earliestDatestamp 2002-12-31,
+      deletedRecord persistent, granularity YYYY-MM-DD. ListMetadataFormats advertises six
+      prefixes, ListSets four sets, and ListRecords on set:irua:openaire returned 2,826,135
+      bytes of real records. Protocol errors are returned correctly as HTTP 200 with
+      <error code="badVerb"|"badArgument"|"idDoesNotExist">.
+- standard: saml
+  name: SAML 2.0
+  status: conformant
+  x-operator: institution
+  confidence: high
+  evidence:
+    url: https://idpx.ua.ac.be/idp/shibboleth
+    status: 200
+    entity: https://idpx.ua.ac.be/idp/shibboleth
+    detail: >-
+      IDPSSODescriptor with protocolSupportEnumeration urn:oasis:names:tc:SAML:2.0:protocol,
+      four SingleSignOnService bindings (HTTP-Redirect, HTTP-POST, HTTP-POST-SimpleSign and the
+      Shibboleth 1.0 AuthnRequest profile), eight KeyDescriptors, a SAML 1.1/2.0
+      AttributeAuthorityDescriptor with SOAP AttributeQuery endpoints, and OrganizationName
+      "Universiteit Antwerpen". Registered by the Belnet R&E Federation since 2012-03-27 and
+      interfederated into eduGAIN.
+- standard: shibboleth
+  name: Shibboleth
+  status: conformant
+  x-operator: institution
+  confidence: high
+  evidence:
+    url: https://idpx.ua.ac.be/idp/shibboleth
+    status: 200
+    detail: >-
+      Shibboleth Identity Provider. The metadata carries shibmd:Scope regexp="false" ua.ac.be
+      (the urn:mace:shibboleth:metadata:1.0 namespace) and advertises the
+      urn:mace:shibboleth:1.0 protocol alongside SAML. The SSO endpoint at
+      https://idpx.ua.ac.be/idp/profile/SAML2/Redirect/SSO serves the branded "Universiteit
+      Antwerpen Login Service" from the same institution-owned address.
+- standard: orcid
+  name: ORCID
+  status: conformant
+  x-operator: institution
+  confidence: moderate
+  evidence:
+    url: https://repository.uantwerpen.be/oai/abua/?verb=ListSets
+    status: 200
+    detail: >-
+      The repository exposes ORCID as a first-class selective-harvesting selector: ListSets
+      advertises the set template `publications:irua:orcid:yourorcid`, i.e. an ORCID iD is a
+      valid set specification for harvesting an author's IRUA output. Corroborated by the
+      library's institutional ORCID service pages under
+      https://www.uantwerpen.be/en/library/research/orcid/ (HTTP 200), including a
+      revoke-access page, which indicates an OAuth-based ORCID integration rather than a
+      manual identifier field. Recorded at moderate confidence because the integration itself
+      is not separately documented in a machine-readable contract.
+- standard: crossref
+  name: Crossref
+  status: conformant
+  x-operator: registry
+  confidence: high
+  evidence:
+    url: https://api.crossref.org/members?query=antwerp
+    status: 200
+    member_id: 29262
+    detail: >-
+      Crossref member 29262 "University of Antwerp", DOI prefixes 10.52034 and 10.63028,
+      565 registered DOIs (37 current, 528 backfile) as of the 2026 status check. This is a
+      registry MEMBERSHIP — a fact about the institution — not a contract the institution
+      publishes. Crossref's own API is never saved here as the university's.
+
+not_conformant:
+- standard: datacite
+  status: not-found
+  detail: >-
+    https://api.datacite.org/providers?query=antwerp and
+    https://api.datacite.org/clients?query=antwerp both return HTTP 200 with zero results.
+    The university registers DOIs through Crossref, not DataCite. Recorded as an absence
+    rather than left blank, so a later run does not re-probe it as an unknown.
+- standard: lti
+  status: tenant-only
+  detail: >-
+    Any LTI conformance reachable under a uantwerpen.be hostname belongs to Anthology's
+    Blackboard Learn, running as a tenant at blackboard.uantwerpen.be (CNAME to
+    uantwerpen-livemig.blackboard.com, terminating on Amazon address space). Not credited
+    to the university.
+- standard: scim
+  status: not-found
+  detail: No SCIM endpoint or provisioning contract found on any institution-operated host.
+- standard: oneroster
+  status: not-found
+  detail: Not applicable to this institution's published surface; nothing found.
+- standard: ed-fi
+  status: not-found
+  detail: US K-12 standard; nothing found, and none expected for a Belgian university.
+- standard: caliper
+  status: not-found
+  detail: No Caliper analytics endpoint found on any institution-operated host.
+- standard: qti
+  status: not-found
+  detail: No QTI assessment interchange surface found on any institution-operated host.
+
+additional_standards_observed:
+  note: >-
+    Real, evidenced standards conformance that falls OUTSIDE the education regime's scored
+    standards[] list. Recorded for completeness; contributes nothing to the score.
+  items:
+  - standard: marc21
+    evidence: >-
+      ListMetadataFormats advertises metadataPrefix marc21 against
+      http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd.
+  - standard: mods
+    evidence: >-
+      Two MODS-namespaced prefixes advertised — vabbmods (the Flemish VABB-SHW academic
+      bibliographic database profile) and fwomods (the FWO research funder profile).
+  - standard: cerif
+    evidence: >-
+      metadataPrefix cerif against the euroCRIS CERIF 1.5 schema
+      https://eurocris.org/Uploads/Web%20pages/CERIF-1.5/CERIF_1.5_1.xsd — a research
+      information (CRIS) interchange standard.
+  - standard: dublin-core
+    evidence: metadataPrefix oai_dc against http://www.openarchives.org/OAI/2.0/oai_dc.xsd.

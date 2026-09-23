@@ -1,0 +1,44 @@
+specification: API Evangelist Scopes
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+api: university-of-antwerp:irua-oai-pmh
+generated: '2026-09-01'
+method: probed
+source: https://repository.uantwerpen.be/oai/abua/?verb=ListSets (HTTP 200), 2026-09-01.
+x-operator: institution
+description: >-
+  OAI-PMH has no OAuth scopes; its equivalent access-partitioning mechanism is the
+  selective-harvesting SET. These four are what the repository advertises. Two are fixed
+  named collections and two are TEMPLATES — parameterised set specifications the client fills
+  in — which is unusual and is the interesting part: an ORCID iD is a valid harvesting scope
+  against this repository, and so is a free-text search string.
+sets:
+- setSpec: 'set:irua:openaccess'
+  setName: OpenAccess
+  kind: named-collection
+  detail: >-
+    Records whose dc:rights is info:eu-repo/semantics/openAccess. Verified by
+    ListIdentifiers, which returned real headers (c:irua:100005 and following).
+- setSpec: 'set:irua:openaire'
+  setName: OpenAIRE
+  kind: named-collection
+  detail: >-
+    The OpenAIRE-compliant subset, the set a European aggregator harvests. Verified by
+    ListRecords, which returned 2,826,135 bytes of records in one response.
+- setSpec: 'publications:irua:orcid:yourorcid'
+  setName: 'publications:irua:orcid:<ORCID iD>'
+  kind: template
+  detail: >-
+    Substitute an ORCID iD for `yourorcid` to harvest one researcher's IRUA output. This is
+    the repository treating ORCID as a first-class scoping identifier and is the evidence
+    behind the `orcid` conformance record.
+- setSpec: 'search:yoursearchstring'
+  setName: 'search:<query>'
+  kind: template
+  detail: >-
+    Substitute a query for `yoursearchstring` to harvest an arbitrary result set. Effectively
+    a search API wearing OAI-PMH clothing, and undocumented outside this ListSets response.
+authorization: >-
+  None. Every set above is harvestable anonymously over HTTPS; no key, token or registration
+  was required for any probe in this profile.

@@ -1,0 +1,76 @@
+specification: API Evangelist Authentication
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+generated: '2026-09-01'
+method: probed
+source: >-
+  Anonymous probes of https://repository.uantwerpen.be/oai/abua/ (all verbs, HTTP 200 with no
+  credential); https://idpx.ua.ac.be/idp/shibboleth (HTTP 200, SAML 2.0 metadata);
+  https://blackboard.uantwerpen.be/learn/api/public/v1/system/version (HTTP 200) and
+  /learn/api/public/v1/courses (HTTP 401); https://go.wander.be/ (login form); and
+  https://account.vscentrum.be/ (Shibboleth WAYF redirect). All 2026-09-01.
+description: >-
+  How access is established across the University of Antwerp's surfaces. There is no API key
+  programme, no OAuth authorization server the institution operates for third parties, and no
+  developer registration of any kind. Access is binary: metadata harvesting is fully anonymous,
+  and everything else is behind institutional SAML single sign-on.
+schemes:
+- surface: IRUA OAI-PMH metadata harvesting
+  url: https://repository.uantwerpen.be/oai/abua/
+  x-operator: institution
+  scheme: none
+  detail: >-
+    No authentication. Every OAI-PMH verb answered HTTP 200 to an anonymous client with no
+    header, key or referrer. No rate limiting was observed, including on a ListRecords call
+    that returned 2,826,135 bytes; that is an absence of evidence, not a documented guarantee.
+- surface: Institutional single sign-on
+  url: https://idpx.ua.ac.be/idp/shibboleth
+  x-operator: institution
+  scheme: saml2
+  detail: >-
+    Shibboleth Identity Provider, SAML 2.0 with HTTP-Redirect, HTTP-POST and
+    HTTP-POST-SimpleSign SSO bindings plus a SAML 1.1/2.0 attribute authority over SOAP.
+    shibmd:Scope ua.ac.be. Registered in the Belnet R&E Federation and interfederated into
+    eduGAIN, so an eligible relying party obtains access through federation membership rather
+    than through anything the university issues directly. This is the institution's real
+    authorization contract and it is machine-readable.
+    See identity-federation/university-of-antwerp-identity-federation.yml.
+- surface: Wander / Brocade library platform
+  url: https://go.wander.be/
+  x-operator: institution
+  scheme: proprietary-session
+  detail: >-
+    Form login against the Brocade/Wander application, session propagated as a numeric
+    `session` query parameter across framesets. Public OPAC views are reachable anonymously;
+    staff functions are not. No documented programmatic authentication.
+- surface: Blackboard Learn (Anthology)
+  url: https://blackboard.uantwerpen.be/learn/api/public/v1/
+  x-operator: tenant
+  scheme: oauth2
+  detail: >-
+    Anthology's Blackboard Learn REST API is reachable on the university's hostname:
+    /learn/api/public/v1/system/version returns HTTP 200 with a version document
+    (learn 4000.21.0, build rel.28+435d029), while /learn/api/public/v1/courses returns
+    HTTP 401 {"status":401,"message":"API request is not authenticated."}. Blackboard's REST
+    API uses OAuth 2.0 with developer keys issued per-institution. The contract, the OAuth
+    server and the engineering are Anthology's; the tenancy is the university's. Recorded, not
+    credited.
+- surface: Flemish Supercomputer Centre account portal
+  url: https://account.vscentrum.be/
+  x-operator: tenant
+  scheme: saml2
+  detail: >-
+    Redirects to a Shibboleth discovery service whose institution list includes "Universiteit
+    Antwerpen" against entityID https://idpx.ua.ac.be/idp/shibboleth — the university's own
+    IdP authenticating into a consortium service that Ghent University operates
+    (157.193.43.57, RUGNET1).
+absent:
+  api_keys: No API key issuance, developer portal or registration flow found on any host.
+  oauth_authorization_server: >-
+    None operated by the institution. The only OAuth in evidence belongs to Anthology
+    (Blackboard) and to ORCID, both third parties.
+  well_known: >-
+    https://www.uantwerpen.be/.well-known/security.txt returns 404, and no
+    /.well-known/oauth-protected-resource or openid-configuration was found on any
+    institution host.

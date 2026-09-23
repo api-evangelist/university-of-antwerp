@@ -1,0 +1,65 @@
+specification: API Evangelist Vocabulary
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+api: university-of-antwerp:irua-oai-pmh
+generated: '2026-09-01'
+method: probed
+source: >-
+  https://repository.uantwerpen.be/oai/abua/?verb=ListMetadataFormats (HTTP 200) and
+  ?verb=GetRecord&identifier=c:irua:100005&metadataPrefix=oai_dc (HTTP 200), 2026-09-01.
+x-operator: institution
+description: >-
+  The metadata vocabularies the Institutional Repository University of Antwerp actually
+  serves, read from the repository's own ListMetadataFormats response rather than assumed
+  from the OAI-PMH specification. Two of the six prefixes are Flemish research-information
+  profiles that exist nowhere in a generic repository deployment, which is itself evidence
+  that this endpoint is institution-configured rather than an out-of-the-box vendor default.
+metadata_formats:
+- prefix: oai_dc
+  name: Dublin Core (OAI mandatory format)
+  schema: http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+  namespace: http://www.openarchives.org/OAI/2.0/oai_dc/
+- prefix: marc21
+  name: MARC 21 (MARCXML)
+  schema: http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd
+  namespace: http://www.loc.gov/MARC21/slim
+- prefix: catxml
+  name: Brocade / Wander native catalog XML
+  schema: https://go.wander.be/brocade/catalog/catxml.xsd
+  namespace: https://go.wander.be/brocade/catalog/catxml
+  note: >-
+    The platform-native format. Its schema is served from go.wander.be, which resolves to
+    143.169.239.17 — the same University of Antwerp address as the repository itself, because
+    the Wander platform is the university library's own software.
+- prefix: vabbmods
+  name: VABB-SHW MODS profile
+  schema: https://go.wander.be/brocade/catalog/mods-vabb.xsd
+  namespace: http://www.loc.gov/mods/
+  note: >-
+    MODS profiled for VABB-SHW, the Flemish Academic Bibliographic Database for the Social
+    Sciences and Humanities — the regional research-output reporting channel.
+- prefix: fwomods
+  name: FWO MODS profile
+  schema: http://www.loc.gov/mods/
+  namespace: http://www.loc.gov/mods/
+  note: MODS profiled for reporting to FWO, the Research Foundation Flanders.
+- prefix: cerif
+  name: CERIF 1.5
+  schema: https://eurocris.org/Uploads/Web%20pages/CERIF-1.5/CERIF_1.5_1.xsd
+  namespace: https://go.wander.be/brocade/catalog/cerif
+  note: euroCRIS Common European Research Information Format — CRIS interchange.
+record_vocabulary_observed:
+  identifier_form: 'c:irua:<numeric>'
+  identifier_example: c:irua:100005
+  persistent_identifiers:
+  - scheme: DOI
+    example: https://doi.org/10.1016/0022-4049(93)90144-I
+  - scheme: Handle
+    example: https://hdl.handle.net/10067/1000050151162165141
+    note: Handle prefix 10067 is the University of Antwerp's.
+  access_rights_vocabulary: info:eu-repo/semantics/ (COAR / OpenAIRE)
+  access_rights_example: info:eu-repo/semantics/openAccess
+  publication_type_example: info:eu-repo/semantics/article
+  version_type_example: info:eu-repo/semantics/publishedVersion
+  fulltext_host: https://repository.uantwerpen.be/docman/irua/

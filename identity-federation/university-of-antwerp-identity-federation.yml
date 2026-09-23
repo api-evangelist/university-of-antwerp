@@ -1,0 +1,124 @@
+specification: API Evangelist Identity Federation
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+generated: '2026-09-01'
+method: probed
+source: >-
+  Live fetch of https://idpx.ua.ac.be/idp/shibboleth on 2026-09-01 (HTTP 200,
+  application/xml;charset=utf-8, 16,305 bytes), archived verbatim alongside this file as
+  university-of-antwerp-idp-saml-metadata.xml; the discovery service at
+  https://account.vscentrum.be/ (HTTP 200), whose WAYF list names "Universiteit Antwerpen"
+  against entityID https://idpx.ua.ac.be/idp/shibboleth; and RIPE whois / DNS resolution of
+  every host involved, to settle who operates the thing the metadata describes.
+description: >-
+  The University of Antwerp's SAML 2.0 identity federation surface. This is the strongest
+  machine-readable contract in the whole profile, it is institution-operated, and it was
+  entirely absent from the June 2026 pass — exactly the class the university cohort was
+  most completely missing.
+
+  Operator was settled by IP ownership, not by hostname, and the check confirms rather than
+  overturns the hostname reading. idpx.ua.ac.be and idpx.uantwerpen.be both CNAME to
+  idp.uantwerpen.be and resolve to 143.169.245.77, inside inetnum
+  143.169.0.0 - 143.169.255.255, netname UA, org ORG-UA448-RIPE "Universiteit Antwerpen",
+  Prinsstraat 13, 2000 Antwerpen (RIPE, mnt-by BELNET-MNT). There is no CNAME off university
+  infrastructure and no managed-IdP pattern of the kind that made Monash's IdP a tenant of
+  AAF Rapid IdP. The metadata corroborates itself: its mdui:IPHint elements declare
+  143.169.0.0/16, 143.129.0.0/16 and 146.175.0.0/16 as the institution's own address space.
+
+  The entity is registered by the Belnet R&E Federation (registrationAuthority
+  http://federation.belnet.be/, registrationInstant 2012-03-27), the Belgian national
+  research and education identity federation, which interfederates into eduGAIN. Belnet
+  operates the federation; the University of Antwerp operates this identity provider inside it.
+
+  Note the legacy entityID. The SAML entityID is a permanent name, not a URL to be tidied,
+  so it still carries the university's pre-2011 domain ua.ac.be even though every service
+  endpoint in the document now points at idpx.uantwerpen.be. An audit that judges this
+  surface by matching hostnames against the repo's declared domain (uantwerpen.be) will miss
+  it — the same false-negative shape that hid Washington's uw.edu specs.
+
+federation:
+  name: Belnet R&E Federation
+  operator: Belnet (Belgian national research network)
+  registration_authority: http://federation.belnet.be/
+  registration_instant: '2012-03-27T12:00:00Z'
+  registration_policy: http://federation.belnet.be/files/Belnet-metadata-registration-practice-statement.txt
+  interfederation: eduGAIN
+  x-operator: federation
+  probed: '2026-09-01'
+
+identity_provider:
+  entityID: https://idpx.ua.ac.be/idp/shibboleth
+  metadata_url: https://idpx.ua.ac.be/idp/shibboleth
+  metadata_status: 200
+  metadata_content_type: application/xml;charset=utf-8
+  metadata_bytes: 16305
+  archived_copy: identity-federation/university-of-antwerp-idp-saml-metadata.xml
+  software: Shibboleth Identity Provider
+  organization_name: Universiteit Antwerpen
+  organization_url: http://www.uantwerpen.be/
+  display_name: Universiteit Antwerpen
+  scope: ua.ac.be
+  domain_hint: idpx.ua.ac.be
+  geolocation_hint: 'geo:51.184555,4.4212374'
+  ip_hints:
+    - 143.169.0.0/16
+    - 143.129.0.0/16
+    - 146.175.0.0/16
+  protocols:
+    - urn:oasis:names:tc:SAML:2.0:protocol
+    - urn:oasis:names:tc:SAML:1.1:protocol
+    - urn:mace:shibboleth:1.0
+  key_descriptors: 8
+  single_sign_on_bindings:
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect
+      location: https://idpx.uantwerpen.be/idp/profile/SAML2/Redirect/SSO
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST
+      location: https://idpx.uantwerpen.be/idp/profile/SAML2/POST/SSO
+    - binding: urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign
+      location: https://idpx.uantwerpen.be/idp/profile/SAML2/POST-SimpleSign/SSO
+    - binding: urn:mace:shibboleth:1.0:profiles:AuthnRequest
+      location: https://idpx.uantwerpen.be/idp/profile/Shibboleth/SSO
+  attribute_authority:
+    protocols:
+      - urn:oasis:names:tc:SAML:1.1:protocol
+      - urn:oasis:names:tc:SAML:2.0:protocol
+    endpoints:
+      - https://idpx.uantwerpen.be:8443/idp/profile/SAML1/SOAP/AttributeQuery
+      - https://idpx.uantwerpen.be:8443/idp/profile/SAML2/SOAP/AttributeQuery
+  technical_contact: a named individual at uantwerpen.be, published verbatim in the archived metadata
+  x-operator: institution
+  x-operator-basis: >-
+    idpx.ua.ac.be -> idp.uantwerpen.be -> 143.169.245.77, inside the University of Antwerp's own
+    RIPE allocation (143.169.0.0/16, netname UA, org "Universiteit Antwerpen"). No CNAME off
+    institution infrastructure; the metadata's own mdui:IPHint declares the same netblock. The
+    branded SSO error page at https://idpx.ua.ac.be/idp/profile/SAML2/Redirect/SSO renders
+    "Universiteit Antwerpen Login Service" from the same host. Institution's identity data,
+    institution's engineering, institution's hardware.
+
+defects_observed:
+  - id: metadata-not-well-formed
+    severity: low
+    detail: >-
+      The standalone metadata document served at the entityID is NOT well-formed XML as served.
+      The root EntityDescriptor declares xmlns, ds, shibmd, xml and mdui, but the Extensions
+      block uses the mdrpi: prefix (mdrpi:RegistrationInfo, mdrpi:RegistrationPolicy) without
+      declaring urn:oasis:names:tc:SAML:metadata:rpi. Python's ElementTree rejects it with
+      "unbound prefix: line 5, column 8". The fragment is valid inside the federation aggregate,
+      where the aggregate root declares mdrpi; the per-entity copy simply lost the declaration.
+      Reported as observed, not repaired — the archived copy is a verbatim capture of what the
+      university actually serves.
+    evidence:
+      url: https://idpx.ua.ac.be/idp/shibboleth
+      status: 200
+
+related_surfaces:
+  - name: Flemish Supercomputer Centre (VSC) account portal
+    url: https://account.vscentrum.be/
+    status: 200
+    note: >-
+      The VSC discovery service lists "Universiteit Antwerpen" against this IdP's entityID,
+      which is how the entityID was recovered. The portal itself resolves to 157.193.43.57
+      (RUGNET1, Universiteit Gent) — it is operated by Ghent University for the five-university
+      consortium, so it is a participation, not a University of Antwerp surface.
+    x-operator: tenant

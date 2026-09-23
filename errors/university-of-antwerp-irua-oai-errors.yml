@@ -1,0 +1,49 @@
+specification: API Evangelist Errors
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+api: university-of-antwerp:irua-oai-pmh
+generated: '2026-09-01'
+method: probed
+source: >-
+  Deliberate failure probes against https://repository.uantwerpen.be/oai/abua/ on 2026-09-01:
+  ?verb=Bogus, ?verb=GetRecord (identifier omitted), and
+  ?verb=GetRecord&identifier=oai:bogus&metadataPrefix=oai_dc.
+x-operator: institution
+description: >-
+  Observed error semantics. The headline for any agent consuming this endpoint: EVERY error
+  returns HTTP 200. The failure is carried in an <error code="..."> element inside an
+  otherwise normal OAI-PMH envelope. That is protocol-correct for OAI-PMH 2.0 and it is the
+  single most likely cause of silent data loss in a client that branches on status code
+  alone. The university documents none of this; it was recovered by probing.
+transport:
+  http_status_on_error: 200
+  content_type: text/xml
+  envelope: >-
+    Standard OAI-PMH element, xsi:schemaLocation http://www.openarchives.org/OAI/2.0/
+    http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd, with responseDate and a request element
+    echoing the parameters, followed by one or more error elements.
+errors:
+- code: badVerb
+  message_observed: Verb not allowed in this repository
+  http_status: 200
+  trigger: '?verb=Bogus'
+  detail: >-
+    Note the wording. It is "not allowed in this repository", not "not a valid OAI-PMH verb" —
+    the same code covers both an unknown verb and a verb this deployment declines to serve.
+- code: badArgument
+  message_observed: Missing identifier
+  http_status: 200
+  trigger: '?verb=GetRecord with no identifier parameter'
+- code: idDoesNotExist
+  message_observed: Identifier unknown in repository
+  http_status: 200
+  trigger: '?verb=GetRecord&identifier=oai:bogus&metadataPrefix=oai_dc'
+  detail: >-
+    Confirms the identifier namespace is NOT the conventional oai:<domain>:<id> form. Working
+    identifiers take the form c:irua:<numeric>, e.g. c:irua:100005.
+not_observed:
+  note: >-
+    The remaining OAI-PMH 2.0 error codes (cannotDisseminateFormat, noRecordsMatch,
+    noMetadataFormats, noSetHierarchy, badResumptionToken) were not deliberately triggered in
+    this run and are therefore NOT recorded as observed. Absence here means unprobed, not absent.

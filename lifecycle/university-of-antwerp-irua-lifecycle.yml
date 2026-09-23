@@ -1,0 +1,47 @@
+specification: API Evangelist Lifecycle
+specificationVersion: '0.1'
+provider: University of Antwerp
+providerId: university-of-antwerp
+api: university-of-antwerp:irua-oai-pmh
+generated: '2026-09-01'
+method: probed
+source: >-
+  https://repository.uantwerpen.be/oai/abua/?verb=Identify (HTTP 200) and
+  ?verb=ListIdentifiers&metadataPrefix=oai_dc&set=set:irua:openaccess (HTTP 200), 2026-09-01.
+x-operator: institution
+description: >-
+  Change and deletion semantics for the IRUA harvesting interface, taken from the endpoint's
+  own Identify response. OAI-PMH is one of the few protocols that states its own record
+  lifecycle contract in-band, so this is a real published commitment rather than a derived
+  guess — and it is a stronger one than most institutional repositories make.
+versioning:
+  protocol_version: '2.0'
+  scheme: >-
+    Protocol version only. The interface exposes no product version, no dated release channel
+    and no changelog; a client detects change by re-harvesting, not by reading a version.
+change_detection:
+  mechanism: datestamp
+  granularity: YYYY-MM-DD
+  detail: >-
+    Incremental harvesting via `from` and `until` at day granularity. Sub-day change cannot be
+    resolved, so a client polling more than once a day re-reads the same window.
+  earliest_datestamp: '2002-12-31'
+  observed_record_datestamps: '2024-08-18 through 2024-12-31 in the openaccess set sample'
+deletion:
+  policy: persistent
+  detail: >-
+    deletedRecord=persistent is the strongest of the three OAI-PMH options: the repository
+    undertakes to keep tombstones for deleted records indefinitely, so a harvester can
+    reconcile removals rather than silently keeping records the institution has withdrawn.
+    Reversibility is therefore documented at the protocol level, which almost nothing else in
+    this profile can claim.
+pagination:
+  mechanism: resumptionToken
+  detail: >-
+    Incomplete list responses continue via resumptionToken. No page size or token lifetime is
+    published; both must be discovered at runtime.
+deprecation:
+  policy: none-published
+  detail: >-
+    No deprecation policy, sunset header, status page or notification channel was found for
+    this endpoint. If the interface changes, a harvester learns about it by failing.

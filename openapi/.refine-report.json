@@ -1,0 +1,24 @@
+{
+  "provider": "university-of-antwerp",
+  "sources": [
+    "_original/university-of-antwerp-irua-oai-pmh-openapi.yml"
+  ],
+  "outputs": [
+    "university-of-antwerp-irua-oai-pmh-metadata-interface-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "university-of-antwerp-irua-oai-pmh-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "university-of-antwerp-irua-oai-pmh-openapi.yml: tagged paths GET / -> IRUA OAI PMH Metadata Interface",
+    "university-of-antwerp-irua-oai-pmh-openapi.yml: declared missing tag: IRUA OAI PMH Metadata Interface",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/university-of-antwerp-irua-oai-pmh-openapi_2.yml: archived document superseded by a larger archived document",
+    "university-of-antwerp-irua-oai-pmh-metadata-interface-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

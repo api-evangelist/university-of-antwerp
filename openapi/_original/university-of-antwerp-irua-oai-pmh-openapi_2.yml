@@ -1,0 +1,134 @@
+# x-archived-from: university-of-antwerp-irua-oai-pmh-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.1.0
+info:
+  title: IRUA OAI-PMH Metadata Interface
+  version: '2.0'
+  summary: >-
+    Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH 2.0) interface for the
+    Institutional Repository University of Antwerp (IRUA).
+  description: >-
+    Institution-operated OAI-PMH 2.0 harvesting interface for the Institutional Repository
+    University of Antwerp (IRUA), served from the university's own host
+    repository.uantwerpen.be, which resolves to 143.169.239.17 inside inetnum
+    143.169.0.0-143.169.255.255, netname UA, org "Universiteit Antwerpen", Prinsstraat 13,
+    2000 Antwerpen (RIPE, maintained by BELNET-MNT). The repository software underneath is
+    Brocade / Wander, which the University of Antwerp Library & Archive builds and hosts
+    itself, so both the endpoint and the platform are the institution's.
+
+    This description was DERIVED from live probes of the endpoint on 2026-09-01, not
+    published by the University of Antwerp. Every verb, metadata prefix, set and error code
+    below was observed in an actual response; nothing is inferred from the OAI-PMH
+    specification alone. The university publishes no OpenAPI, AsyncAPI or other machine-readable
+    contract of its own for this or any other surface.
+
+    OAI-PMH is a single-endpoint protocol: every operation is a GET against the base URL with
+    a `verb` query parameter, and every response is XML in the
+    http://www.openarchives.org/OAI/2.0/ namespace. Errors are returned as HTTP 200 with an
+    <error code="..."> element, which is protocol-correct and must be handled by the client.
+  contact:
+    name: IRUA repository helpdesk
+    email: helpdesk@mail.wander.be
+  x-operator: institution
+  x-operator-basis: >-
+    Host repository.uantwerpen.be is under the institution's own registrable domain and resolves
+    into the University of Antwerp's own RIPE allocation (143.169.0.0/16, netname UA, org
+    "Universiteit Antwerpen"). Not a vendor tenancy: the Brocade/Wander platform serving it is
+    itself built and hosted by the UAntwerpen Library & Archive on the same address.
+  x-provenance:
+    generated: '2026-09-01'
+    method: derived
+    source: >-
+      Live probes of https://repository.uantwerpen.be/oai/abua/ on 2026-09-01 — verb=Identify
+      (HTTP 200), verb=ListMetadataFormats (HTTP 200), verb=ListSets (HTTP 200),
+      verb=ListIdentifiers&metadataPrefix=oai_dc&set=set:irua:openaccess (HTTP 200),
+      verb=ListRecords&metadataPrefix=oai_dc&set=set:irua:openaire (HTTP 200, 2,826,135 bytes),
+      verb=Bogus (badVerb), verb=GetRecord with no identifier (badArgument), and
+      verb=GetRecord&identifier=oai:bogus (idDoesNotExist).
+servers:
+  - url: https://repository.uantwerpen.be/oai/abua
+    description: Institutional Repository University of Antwerp (IRUA) OAI-PMH base URL
+paths:
+  /:
+    get:
+      operationId: oaiRequest
+      summary: Issue an OAI-PMH 2.0 request
+      description: >-
+        Single OAI-PMH entry point. The `verb` parameter selects the operation; the remaining
+        parameters are conditional on the verb, per OAI-PMH 2.0. All responses are XML.
+      parameters:
+        - name: verb
+          in: query
+          required: true
+          description: The OAI-PMH verb. All six were observed responding on this endpoint.
+          schema:
+            type: string
+            enum:
+              - Identify
+              - ListMetadataFormats
+              - ListSets
+              - ListIdentifiers
+              - ListRecords
+              - GetRecord
+          examples:
+            identify:
+              value: Identify
+        - name: metadataPrefix
+          in: query
+          required: false
+          description: >-
+            Metadata format to return. Required for ListIdentifiers, ListRecords and GetRecord.
+            The six prefixes below are the ones this repository advertises via ListMetadataFormats.
+          schema:
+            type: string
+            enum: [oai_dc, marc21, catxml, vabbmods, fwomods, cerif]
+        - name: set
+          in: query
+          required: false
+          description: >-
+            Selective-harvesting set. Four are advertised via ListSets; see
+            scopes/university-of-antwerp-irua-oai-sets.yml.
+          schema:
+            type: string
+        - name: identifier
+          in: query
+          required: false
+          description: >-
+            Record identifier, required for GetRecord. Observed identifier form is
+            `c:irua:<numeric>`, e.g. c:irua:100005.
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: false
+          description: Lower bound datestamp for selective harvesting. Granularity YYYY-MM-DD.
+          schema:
+            type: string
+            format: date
+        - name: until
+          in: query
+          required: false
+          description: Upper bound datestamp for selective harvesting. Granularity YYYY-MM-DD.
+          schema:
+            type: string
+            format: date
+        - name: resumptionToken
+          in: query
+          required: false
+          description: Continuation token from a previous incomplete list response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: >-
+            An OAI-PMH XML response. Protocol-level errors are ALSO returned with HTTP 200 and
+            carry an <error code="..."> element — see errors/university-of-antwerp-irua-oai-errors.yml.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml
+                description: >-
+                  OAI-PMH 2.0 response document, validating against
+                  http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd as declared in the
+                  xsi:schemaLocation of every observed response.
