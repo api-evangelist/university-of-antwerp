@@ -157,7 +157,7 @@ apis:
   - Brocade
   - Wander
   - Anet
-  - Open-Source
+  - Open Source
   - Collection Management
   tags_raw:
   - Library
@@ -166,6 +166,7 @@ apis:
   - Anet
   - Open Source
   - Collection Management
+  - Open-Source
   properties:
   - type: Documentation
     url: https://www.wander.be/en
@@ -215,6 +216,7 @@ apis:
     naming is Anthology's managed SaaS pattern. University's data, university's hostname, Anthology's
     platform.
 - aid: university-of-antwerp:vsc
+  x-published: false
   name: Flemish Supercomputer Centre (VSC) participation
   description: >-
     The university is one of the five Flemish university partners in the Vlaams Supercomputer Centrum
