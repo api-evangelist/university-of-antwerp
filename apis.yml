@@ -69,6 +69,20 @@ tags:
 - Library
 - Research Repository
 - Research Computing
+- LMS
+tags_raw:
+- Education
+- Higher Education
+- University
+- Belgium
+- Europe
+- Flanders
+- Institutional Repository
+- OAI-PMH
+- Identity Federation
+- Library
+- Research Repository
+- Research Computing
 - Learning Management
 created: '2026-06-03'
 modified: '2026-09-01'
@@ -196,7 +210,7 @@ apis:
   humanURL: https://blackboard.uantwerpen.be/
   baseURL: https://blackboard.uantwerpen.be/learn/api/public/v1/
   tags:
-  - Learning Management
+  - LMS
   - Blackboard
   - Anthology
   - Tenants
